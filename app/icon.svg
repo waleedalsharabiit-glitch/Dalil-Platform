@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Dalil logo">
+  <rect width="256" height="256" rx="52" fill="#0EA5E9"/>
+  <path d="M62 68h62c29.8 0 54 24.2 54 54v56H126c-33.1 0-60-26.9-60-60V68Zm28 28v66c0 17.7 14.3 32 32 32h24V118c0-15.5-12.5-28-28-28H90Z" fill="#fff"/>
+  <path d="M154 84h28v72.5h-28V84Zm0 80h28v20h-28v-20Z" fill="#BAE6FD"/>
+</svg>
