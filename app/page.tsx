@@ -26,7 +26,7 @@ export default async function HomePage() {
       orderBy: {
         name: "asc",
       },
-      take: 8,
+      take: 4,
     }),
 
     prisma.business.findMany({
@@ -181,13 +181,15 @@ export default async function HomePage() {
           </div>
 
           {categories.length > 0 ? (
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
               {categories.map((category) => (
                 <CategoryCard
                   key={category.id}
                   name={category.name}
                   slug={category.slug}
                   icon={category.icon}
+                  image={category.image}
+                  description={category.description}
                 />
               ))}
             </div>

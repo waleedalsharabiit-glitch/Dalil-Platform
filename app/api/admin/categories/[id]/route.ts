@@ -31,6 +31,13 @@ const updateCategorySchema = z.object({
     .nullable()
     .optional(),
 
+  image: z
+    .string()
+    .trim()
+    .max(500, "رابط الصورة طويل جدًا")
+    .nullable()
+    .optional(),
+
   isActive: z.boolean().optional(),
 });
 
@@ -153,6 +160,12 @@ export async function PATCH(
         slug,
         description: data.description?.trim() || null,
         icon: data.icon?.trim() || null,
+        image:
+          data.image === undefined
+            ? existingCategory.image
+            : data.image == null
+              ? null
+              : data.image.trim() || null,
         ...(data.isActive !== undefined
           ? {
               isActive: data.isActive,

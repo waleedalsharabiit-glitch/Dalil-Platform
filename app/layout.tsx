@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
 import { siteConfig } from "@/config/site";
+import "leaflet/dist/leaflet.css";
 import "./globals.css";
 
 const tajawal = Tajawal({

@@ -1,6 +1,9 @@
 
 import Link from "next/link";
 import {
+  MapPin,
+} from "lucide-react";
+import {
   ArrowLeft,
   Building2,
   ChevronLeft,
@@ -14,6 +17,7 @@ import {
   Sparkles,
   Star,
   UserRound,
+  
 } from "lucide-react";
 
 import type { UserRole } from "@/generated/prisma/client";
@@ -199,6 +203,11 @@ export default function DashboardSidebar({
                   href="/requests"
                   icon={ClipboardList}
                   label="طلباتي"
+                />
+                <SidebarLink
+                  href="/businesses/map"
+                  icon={MapPin}
+                  label="الخريطة العامة"
                 />
 
                 <SidebarLink

@@ -1,10 +1,12 @@
 
 import Link from "next/link";
+
 import {
   ArrowLeft,
   BriefcaseBusiness,
   Filter,
   Search,
+  MapPin,
 } from "lucide-react";
 
 import { prisma } from "@/lib/db/prisma";
@@ -350,6 +352,13 @@ export default async function BusinessesPage({
                   عرض جميع الأنشطة
                   <ArrowLeft className="h-4 w-4" />
                 </Link>
+                <Link
+  href="/businesses/map"
+  className="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-600"
+>
+  <MapPin className="h-4 w-4" />
+  عرض الأنشطة على الخريطة
+</Link>
               </div>
             )}
           </div>

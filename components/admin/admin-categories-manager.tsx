@@ -18,6 +18,7 @@ interface Category {
   slug: string;
   description: string | null;
   icon: string | null;
+  image: string | null;
   isActive: boolean;
   createdAt: Date;
   _count: {
@@ -35,6 +36,7 @@ const emptyForm = {
   slug: "",
   description: "",
   icon: "",
+  image: "",
 };
 
 export default function AdminCategoriesManager({
@@ -94,6 +96,7 @@ export default function AdminCategoriesManager({
       slug: category.slug,
       description: category.description || "",
       icon: category.icon || "",
+      image: category.image || "",
     });
 
     setIsActive(category.isActive);
@@ -129,6 +132,7 @@ export default function AdminCategoriesManager({
           slug: form.slug || undefined,
           description: form.description || null,
           icon: form.icon || null,
+          image: form.image || null,
           isActive,
         }),
       });
@@ -199,6 +203,7 @@ export default function AdminCategoriesManager({
             slug: category.slug,
             description: category.description,
             icon: category.icon,
+            image: category.image,
             isActive: !category.isActive,
           }),
         },
@@ -399,6 +404,18 @@ export default function AdminCategoriesManager({
               placeholder="مثال: Smartphone"
             />
 
+            <Field
+              label="رابط الصورة"
+              value={form.image}
+              onChange={(value) =>
+                setForm((current) => ({
+                  ...current,
+                  image: value,
+                }))
+              }
+              placeholder="https://example.com/category-image.jpg"
+            />
+
             <div className="flex items-end">
               <label className="flex w-full cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:border-sky-200 hover:bg-sky-50">
                 <div>
@@ -420,6 +437,37 @@ export default function AdminCategoriesManager({
                   className="h-5 w-5 accent-sky-500"
                 />
               </label>
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="mb-2 block text-sm font-bold text-slate-700">
+                معاينة الصورة
+              </label>
+
+              <div
+                className="relative overflow-hidden rounded-[1.5rem] border border-sky-100 bg-slate-100"
+                style={{
+                  backgroundImage: form.image
+                    ? `linear-gradient(135deg, rgba(14,165,233,0.22), rgba(15,23,42,0.2)), url(${form.image})`
+                    : "linear-gradient(135deg, rgba(224,242,254,0.95), rgba(255,255,255,0.95))",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  minHeight: "180px",
+                }}
+              >
+                <div className="flex min-h-[180px] items-end justify-between bg-gradient-to-t from-slate-900/50 via-slate-900/10 to-transparent p-4">
+                  <div>
+                    <p className="text-xs font-black text-white/80">معاينة</p>
+                    <p className="text-lg font-black text-white">
+                      {form.name || "اسم التصنيف"}
+                    </p>
+                  </div>
+
+                  <div className="rounded-full border border-white/40 bg-white/20 px-3 py-1 text-[10px] font-black text-white backdrop-blur-sm">
+                    {form.icon || "📁"}
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="md:col-span-2">
@@ -492,8 +540,17 @@ export default function AdminCategoriesManager({
                 >
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-100 text-lg">
-                        {category.icon || "📂"}
+                      <div
+                        className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl border border-sky-100 bg-slate-200 text-lg shadow-sm"
+                        style={{
+                          backgroundImage: category.image
+                            ? `linear-gradient(135deg, rgba(14,165,233,0.18), rgba(15,23,42,0.18)), url(${category.image})`
+                            : undefined,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                      >
+                        {!category.image && <span>{category.icon || "📂"}</span>}
                       </div>
 
                       <div>

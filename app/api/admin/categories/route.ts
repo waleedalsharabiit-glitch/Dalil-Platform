@@ -31,6 +31,13 @@ const categorySchema = z.object({
     .nullable()
     .optional(),
 
+  image: z
+    .string()
+    .trim()
+    .max(500, "رابط الصورة طويل جدًا")
+    .nullable()
+    .optional(),
+
   isActive: z.boolean().optional(),
 });
 
@@ -165,6 +172,7 @@ export async function POST(request: Request) {
         slug,
         description: data.description?.trim() || null,
         icon: data.icon?.trim() || null,
+        image: data.image?.trim() || null,
         isActive: data.isActive ?? true,
       },
     });

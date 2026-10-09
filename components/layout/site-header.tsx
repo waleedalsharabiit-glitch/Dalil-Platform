@@ -1,24 +1,14 @@
 
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
 import { auth, signOut } from "@/lib/auth/auth";
-import { siteConfig } from "@/config/site";
 import {
-  Globe,
   Heart,
   LogIn,
   Menu,
-  MessageCircle,
   Plus,
-  Send,
   UserCircle,
 } from "lucide-react";
-
-const socialIconMap = {
-  Instagram: Globe,
-  Facebook: Globe,
-  X: Send,
-  WhatsApp: MessageCircle,
-} as const;
 
 export default async function SiteHeader() {
   const session = await auth();
@@ -71,35 +61,22 @@ export default async function SiteHeader() {
           </Link>
 
           <Link
-            href="/businesses"
+            href="/businesses/map"
             className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-sky-600"
           >
             اكتشف الأماكن
           </Link>
+          <Link
+  href="/search"
+  className="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-sky-50 hover:text-sky-600"
+>
+  <Sparkles className="h-4 w-4" />
+  البحث الذكي
+</Link>
         </nav>
 
-        {/* Social + Actions */}
+        {/* Actions */}
         <div className="flex items-center gap-2">
-          <div className="hidden items-center gap-1.5 lg:flex">
-            {siteConfig.socialLinks.map((social) => {
-              const Icon = socialIconMap[social.name as keyof typeof socialIconMap] ?? MessageCircle;
-
-              return (
-                <Link
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-600"
-                  aria-label={social.name}
-                  title={social.name}
-                >
-                  <Icon size={16} />
-                </Link>
-              );
-            })}
-          </div>
-
           {session?.user ? (
             <>
               <Link

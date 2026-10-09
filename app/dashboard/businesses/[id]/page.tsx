@@ -1,6 +1,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+
 import {
   ArrowLeft,
   ArrowRight,
@@ -313,6 +314,18 @@ export default async function BusinessManagementPage({
                   عرض الصفحة
                 </Link>
 
+                {mapUrl && (
+                  <a
+                    href={mapUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-bold text-emerald-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-emerald-100 hover:shadow-md"
+                  >
+                    <MapPin className="h-4 w-4 transition-transform group-hover:scale-110" />
+                    الموقع على الخريطة
+                  </a>
+                )}
+
                 <Link
                   href={`/dashboard/businesses/${business.id}/hours`}
                   className="group inline-flex items-center justify-center gap-2 rounded-xl border border-sky-200 bg-white px-4 py-3 text-sm font-bold text-sky-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-sky-300 hover:bg-sky-50 hover:shadow-md"
@@ -366,6 +379,7 @@ export default async function BusinessManagementPage({
             description={`${pendingRequests} قيد التنفيذ • ${completedRequests} مكتملة`}
             iconClass="bg-sky-50 text-sky-500"
           />
+
 
           <StatCard
             icon={<Wrench className="h-5 w-5" />}
