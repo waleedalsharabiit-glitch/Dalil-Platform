@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getFirebaseApiUser } from "@/lib/auth/firebase-api-user";
-import { firebaseApiErrorResponse } from "@/lib/api/firebase-response";
+import { getMobileApiUser } from "@/lib/auth/mobile-api-user";
+import { mobileApiErrorResponse } from "@/lib/api/mobile-response";
 import { prisma } from "@/lib/db/prisma";
 
 const requestSchema = z.object({
@@ -13,18 +13,18 @@ const requestSchema = z.object({
 
 export async function GET(request: Request) {
   try {
-    const user = await getFirebaseApiUser(request);
+    const user = await getMobileApiUser(request);
     const rows = await prisma.serviceRequest.findMany({ where: { userId: user.id }, orderBy: { createdAt: "desc" }, take: 100,
       select: { id: true, title: true, description: true, status: true, createdAt: true, updatedAt: true, service: { select: { id: true, name: true } }, business: { select: { id: true, name: true, slug: true } } } });
     return NextResponse.json({ data: rows });
   } catch (error) {
-    return firebaseApiErrorResponse(error);
+    return mobileApiErrorResponse(error);
   }
 }
 
 export async function POST(request: Request) {
   try {
-    const user = await getFirebaseApiUser(request);
+    const user = await getMobileApiUser(request);
     const parsed = requestSchema.safeParse(await request.json());
     if (!parsed.success) return NextResponse.json({ error: { message: "تحقق من النشاط والخدمة والعنوان والوصف" }, issues: parsed.error.flatten() }, { status: 400 });
     const { businessId, serviceId, title, description } = parsed.data;
@@ -33,6 +33,6 @@ export async function POST(request: Request) {
     const created = await prisma.serviceRequest.create({ data: { userId: user.id, businessId, serviceId: serviceId || null, title, description: description || null }, select: { id: true, title: true, description: true, status: true, createdAt: true, business: { select: { id: true, name: true } }, service: { select: { id: true, name: true } } } });
     return NextResponse.json({ data: created }, { status: 201 });
   } catch (error) {
-    return firebaseApiErrorResponse(error);
+    return mobileApiErrorResponse(error);
   }
 }

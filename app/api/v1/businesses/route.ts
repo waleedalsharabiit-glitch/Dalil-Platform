@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
-import { getFirebaseApiUser } from "@/lib/auth/firebase-api-user";
-import { firebaseApiErrorResponse } from "@/lib/api/firebase-response";
+import { getMobileApiUser } from "@/lib/auth/mobile-api-user";
+import { mobileApiErrorResponse } from "@/lib/api/mobile-response";
 
 const querySchema = z.object({
   q: z.string().trim().max(120).optional(),
@@ -14,9 +14,9 @@ const querySchema = z.object({
 
 export async function GET(request: Request) {
   try {
-    await getFirebaseApiUser(request);
+    await getMobileApiUser(request);
   } catch (error) {
-    return firebaseApiErrorResponse(error);
+    return mobileApiErrorResponse(error);
   }
   const parsed = querySchema.safeParse(Object.fromEntries(new URL(request.url).searchParams));
   if (!parsed.success) return NextResponse.json({ error: { message: "معاملات البحث غير صالحة" } }, { status: 400 });

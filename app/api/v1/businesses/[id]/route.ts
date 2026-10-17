@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
-import { getFirebaseApiUser } from "@/lib/auth/firebase-api-user";
-import { firebaseApiErrorResponse } from "@/lib/api/firebase-response";
+import { getMobileApiUser } from "@/lib/auth/mobile-api-user";
+import { mobileApiErrorResponse } from "@/lib/api/mobile-response";
 
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    await getFirebaseApiUser(_request);
+    await getMobileApiUser(_request);
   } catch (error) {
-    return firebaseApiErrorResponse(error);
+    return mobileApiErrorResponse(error);
   }
   const { id } = await params;
   const business = await prisma.business.findFirst({
